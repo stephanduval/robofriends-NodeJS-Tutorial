@@ -7,6 +7,7 @@ import 'tachyons';
 
 
 
+
 // Greeting bewlow is called a prop
 ReactDOM.render(
   <React.StrictMode>
