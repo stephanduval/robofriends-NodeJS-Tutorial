@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import CardList from './CardList';
+import App from './App'; // App is the parent of all our components
 import reportWebVitals from './reportWebVitals';
 import 'tachyons';
-import { robots } from './robots';  // We have to {destructure it} because its not set to default export like cards
+
 
 
 // Greeting bewlow is called a prop
 ReactDOM.render(
   <React.StrictMode>
-    <CardList robots={robots}/>
+    <App />,  
   </React.StrictMode>,
   document.getElementById('root')
 );
