@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 //App.js is a Parent of CardList
 import CardList from './CardList';
 // robots is no longer used since we use the json data from an external
-import { robots } from './robots';  // We have to {destructure it} because its not set to default export like cards
+//import { robots } from './robots';  // We have to {destructure it} because its not set to default export like cards
 import SearchBox from './searchBox';
 import Scroll from './Scroll.js';
-
+import ErrorBoundary from './ErrorBoundary';
 import './App.css';
 
 
@@ -65,13 +65,16 @@ class App extends Component {
         // Dis plays a loading message if the asynchronous call hasn't come back (this.state.robots.lenght is 0)
         if (this.state.robots.length === 0) {
             return <h1>Loading</h1>
-        } else {
-        return (
+        } else { 
+        return ( //ErrorBoundary wraps the children (whatever is between the opening and 
+            // closing tags of the)
         <div className='tc'>
             <h1 className='f1'>RoboFriends</h1>
             <SearchBox searchChange={this.onSearchChange}/>
             <Scroll>
+                <ErrorBoundary> 
                 <CardList robots={filteredRobots}/>
+                </ErrorBoundary>
             </Scroll>
         </div>
     );
