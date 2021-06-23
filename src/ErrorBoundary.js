@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/* import React, { Component } from 'react';
 
 // Using this catches an error if some other component fails
 class ErrorBoundary extends Component {
