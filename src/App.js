@@ -4,12 +4,12 @@
 // removed the following line when we changed from classes to hooks to manage states shared between .js components
 //import React, { Component } from 'react';
 // this is how we do it using hooks
-import React, { useState, useEffect, setState } from 'react';
+import React, { useState, useEffect } from 'react';
 //App.js is a Parent of CardList
 import CardList from './CardList';
 // robots is no longer used since we use the json data from an external
 //import { robots } from './robots';  // We have to {destructure it} because its not set to default export like cards
-import SearchBox from './searchBox';
+import SearchBox from './SearchBox';
 import Scroll from './Scroll.js';
 //import ErrorBoundary from './ErrorBoundary';
 import './App.css';
@@ -41,12 +41,11 @@ const [count, setCount] = useState(0)
 
 useEffect(()=> {
     fetch('https://jsonplaceholder.typicode.com/users')
-    // below function reduced to one line
-        .then(response=> response.json())
-        .then(users => {setRobots(users)},)
-        console.log(count)
-},[])
-
+      .then(response=> response.json())
+      .then(users => {setRobots(users)});
+    // console.log(count)
+  },[]) // if you add count, only run if count changes.
+ 
     /*
             .then(response=> {
             return response.json();  // convert respose to JSON
@@ -65,6 +64,21 @@ constructor() {
 
     // we don't use arrow fucntions for REACT parts like this function
     // we don't need componentDidMount anymore because we are using a function instead of the component class
+    
+
+    //useEffect replaces compomentDidMount
+    // useEffect is run everytime the function App gets run
+    useEffect(()=> {fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response=> response.json())
+            .then(response=> {
+            return response.json();  // convert respose to JSON
+            })
+        .then(users => this.setState({robots: users}));
+        .then(users => {
+            this.setState({robots: users})
+
+
+    })
     /*
     componentDidMount(){
         fetch('https://jsonplaceholder.typicode.com/users')
@@ -101,14 +115,14 @@ const onSearchChange = (event) => {
      
 // we no longer need render because we are using the hook!   OMG really?
 //    render () {   // class needs a render function 
-        const filteredRobots = robots.filter(robots =>{
-            // we no longer need .this because we are no longer using a class so we take it out
-            // return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase())  // lowercase makes comparisons easier
-            return robots.name.toLowerCase().includes(searchfield.toLowerCase())  // lowercase makes comparisons easier
+const filteredRobots = robots.filter(robots =>{
+    // we no longer need .this because we are no longer using a class so we take it out
+    // return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase())  // lowercase makes comparisons easier
+return robots.name.toLowerCase().includes(searchfield.toLowerCase())  // lowercase makes comparisons easier
         //return name values of the array of objects that includes the search terms
         })
 
-        return robots.length ?
+        return !robots.length ?
         // Dis plays a loading message if the asynchronous call hasn't come back (this.state.robots.lenght is 0)
         // we no longer need .this so we take it out
         //if (this.state.robots.length === 0) {
@@ -118,15 +132,16 @@ const onSearchChange = (event) => {
         <div className='tc'>
             <h1 className='f1'>RoboFriends</h1>
             <button onClick={()=>setCount(count+1)}>Click Me!</button>
-           
+            <div>Count: {count}</div>
             <SearchBox searchChange={onSearchChange}/>
             <Scroll>
-
-                <CardList robots={filteredRobots}/>
+            Count using hooks in the CardList Component): {count}
+            <CardList robots={filteredRobots}/>
 
             </Scroll>
+        
         </div>
-            )
+            );
     
     }
 
