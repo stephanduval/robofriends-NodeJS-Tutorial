@@ -68,17 +68,12 @@ constructor() {
 
     //useEffect replaces compomentDidMount
     // useEffect is run everytime the function App gets run
-    useEffect(()=> {fetch('https://jsonplaceholder.typicode.com/users')
+    useEffect(()=> {
+        fetch('https://jsonplaceholder.typicode.com/users')
         .then(response=> response.json())
-            .then(response=> {
-            return response.json();  // convert respose to JSON
-            })
-        .then(users => this.setState({robots: users}));
-        .then(users => {
-            this.setState({robots: users})
+        .then(users => {setRobots({users})});
+    },[])
 
-
-    })
     /*
     componentDidMount(){
         fetch('https://jsonplaceholder.typicode.com/users')
@@ -115,7 +110,7 @@ const onSearchChange = (event) => {
      
 // we no longer need render because we are using the hook!   OMG really?
 //    render () {   // class needs a render function 
-const filteredRobots = robots.filter(robots =>{
+const filteredRobots = robots.filter(robots=>{
     // we no longer need .this because we are no longer using a class so we take it out
     // return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase())  // lowercase makes comparisons easier
 return robots.name.toLowerCase().includes(searchfield.toLowerCase())  // lowercase makes comparisons easier
@@ -136,7 +131,7 @@ return robots.name.toLowerCase().includes(searchfield.toLowerCase())  // lowerca
             <SearchBox searchChange={onSearchChange}/>
             <Scroll>
             Count using hooks in the CardList Component): {count}
-            <CardList robots={filteredRobots}/>
+            
 
             </Scroll>
         

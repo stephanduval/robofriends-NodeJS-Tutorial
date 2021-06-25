@@ -19,8 +19,8 @@ const CardList = ({robots}) => {
         );
     })
     return (
+  
         <div>
-      
         {cardsArray} 
         </div>
 
